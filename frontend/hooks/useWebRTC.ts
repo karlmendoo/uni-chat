@@ -26,6 +26,7 @@ export function useWebRTC({ socket, isConnected, localVideoRef, remoteVideoRef }
   
   const peerConnectionRef = useRef<RTCPeerConnection | null>(null);
   const pendingCandidatesRef = useRef<RTCIceCandidate[]>([]);
+  const localStreamRef = useRef<MediaStream | null>(null);
 
   // Initialize local media stream
   const initializeMedia = useCallback(async () => {
@@ -46,6 +47,7 @@ export function useWebRTC({ socket, isConnected, localVideoRef, remoteVideoRef }
       
       console.log('Media access granted, stream obtained:', stream.getTracks().map(t => t.kind));
       setLocalStream(stream);
+      localStreamRef.current = stream; // Keep ref in sync
       if (localVideoRef.current) {
         localVideoRef.current.srcObject = stream;
       }
@@ -211,10 +213,9 @@ export function useWebRTC({ socket, isConnected, localVideoRef, remoteVideoRef }
 
   // Cleanup
   const cleanup = useCallback(() => {
-    // Get tracks from the current local stream
-    const stream = localStream;
-    if (stream) {
-      stream.getTracks().forEach(track => {
+    // Access the latest localStream value without adding it to dependencies
+    if (localStreamRef.current) {
+      localStreamRef.current.getTracks().forEach(track => {
         track.stop();
         console.log('Stopped track:', track.kind);
       });
@@ -223,10 +224,12 @@ export function useWebRTC({ socket, isConnected, localVideoRef, remoteVideoRef }
       peerConnectionRef.current.close();
       peerConnectionRef.current = null;
     }
+    localStreamRef.current = null; // Clear the ref
     setLocalStream(null);
     setRemoteStream(null);
     setConnectionState('disconnected');
-  }, [localStream]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty dependencies to prevent recreation on every stream change
 
   useEffect(() => {
     return () => {
