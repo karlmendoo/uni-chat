@@ -183,7 +183,7 @@ export default function ChatPage() {
       <header className="glass-card p-3 sm:p-4 border-b border-border">
         <div className="container mx-auto flex items-center justify-between flex-wrap gap-2">
           <div className="flex items-center gap-2">
-            <div className="text-xl sm:text-2xl font-bold text-gradient">UniChat</div>
+            <div className="text-xl sm:text-2xl font-bold text-gradient">UnivChat</div>
           </div>
           
           <div className="flex items-center gap-2 sm:gap-4 flex-wrap">

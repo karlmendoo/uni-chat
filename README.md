@@ -1,8 +1,8 @@
-# UniChat - Anonymous Video Chat for University Students 🎓
+# UnivChat - Anonymous Video Chat for University Students 🎓
 
 <div align="center">
 
-![UniChat Banner](https://via.placeholder.com/1200x400/6366f1/ffffff?text=UniChat+-+Connect+with+Students+Worldwide)
+![UnivChat Banner](https://via.placeholder.com/1200x400/6366f1/ffffff?text=UnivChat+-+Connect+with+Students+Worldwide)
 
 **Connect, chat, and make friends with university students from around the world**
 
@@ -15,7 +15,7 @@
 
 ## 🌟 Overview
 
-UniChat is a modern, anonymous video chat platform designed exclusively for university and college students. Connect with peers from your institution or discover students from universities worldwide - all without any login, email, or phone verification required.
+UnivChat is a modern, anonymous video chat platform designed exclusively for university and college students. Connect with peers from your institution or discover students from universities worldwide - all without any login, email, or phone verification required.
 
 ## ✨ Features
 

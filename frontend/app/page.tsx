@@ -61,7 +61,7 @@ export default function HomePage() {
                 <div className="mb-12 text-center">
                   <div className="inline-flex items-center gap-3 mb-4">
                     <Video className="w-10 h-10 text-primary" />
-                    <h1 className="text-4xl font-bold text-gradient">UniChat</h1>
+                    <h1 className="text-4xl font-bold text-gradient">UnivChat</h1>
                   </div>
                 </div>
 
@@ -124,19 +124,19 @@ export default function HomePage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
           <Card className="max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8">
             <div className="flex items-start justify-between mb-6">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gradient">Welcome to UniChat!</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-gradient">Welcome to UnivChat!</h2>
             </div>
 
             <div className="space-y-4 text-content mb-6">
               <div className="mb-6 p-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg border border-primary/20">
-                <h3 className="text-xl font-bold mb-3 text-gradient">What is UniChat?</h3>
+                <h3 className="text-xl font-bold mb-3 text-gradient">What is UnivChat?</h3>
                 <p className="text-base leading-relaxed mb-2">
-                  UniChat is an <strong>anonymous video chat platform</strong> exclusively designed for university students in the Philippines. 
+                  UnivChat is an <strong>anonymous video chat platform</strong> exclusively designed for university students in the Philippines. 
                   Connect with fellow students from across the country through random video chats.
                 </p>
                 <p className="text-base leading-relaxed">
-                  <strong>No registration required</strong> - just pick a display name, select your university, and start meeting new people. 
-                  Whether you want to make friends, practice conversations, or simply have fun, UniChat provides a safe and exciting way to connect with the student community.
+                  Just pick a display name, select your university, and start meeting new people. 
+                  Whether you want to make friends, practice conversations, or simply have fun, UnivChat provides a safe and exciting way to connect with the student community.
                 </p>
               </div>
               

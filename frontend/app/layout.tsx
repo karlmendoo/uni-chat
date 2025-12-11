@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "UniChat - Anonymous Video Chat for Students",
+  title: "UnivChat - Anonymous Video Chat for Students",
   description: "Connect with university students worldwide through anonymous video chat",
 };
 
