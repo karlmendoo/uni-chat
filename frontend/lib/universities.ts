@@ -164,4 +164,88 @@ export const universities: University[] = [
     abbreviation: "CEU",
     logo: "🟡"
   },
+  { 
+    id: "nu", 
+    name: "National University",
+    abbreviation: "NU",
+    logo: "🔵"
+  },
+  { 
+    id: "ue", 
+    name: "University of the East",
+    abbreviation: "UE",
+    logo: "🔴"
+  },
+  { 
+    id: "lyceum", 
+    name: "Lyceum of the Philippines University",
+    abbreviation: "LPU",
+    logo: "🔴"
+  },
+  { 
+    id: "arellano", 
+    name: "Arellano University",
+    abbreviation: "AU",
+    logo: "🟡"
+  },
+  { 
+    id: "san-beda", 
+    name: "San Beda University",
+    abbreviation: "SBU",
+    logo: "🔴"
+  },
+  { 
+    id: "perpetual", 
+    name: "University of Perpetual Help System DALTA",
+    abbreviation: "UPHSD",
+    logo: "🔵"
+  },
+  { 
+    id: "letran", 
+    name: "Colegio de San Juan de Letran",
+    abbreviation: "Letran",
+    logo: "🔵"
+  },
+  { 
+    id: "jru", 
+    name: "Jose Rizal University",
+    abbreviation: "JRU",
+    logo: "🟢"
+  },
+  { 
+    id: "bulacan-state", 
+    name: "Bulacan State University",
+    abbreviation: "BulSU",
+    logo: "🟢"
+  },
+  { 
+    id: "cavite-state", 
+    name: "Cavite State University",
+    abbreviation: "CvSU",
+    logo: "🟢"
+  },
+  { 
+    id: "batangas-state", 
+    name: "Batangas State University",
+    abbreviation: "BatStateU",
+    logo: "🔴"
+  },
+  { 
+    id: "pcu", 
+    name: "Philippine Christian University",
+    abbreviation: "PCU",
+    logo: "🔵"
+  },
+  { 
+    id: "pwu", 
+    name: "Philippine Women's University",
+    abbreviation: "PWU",
+    logo: "🟣"
+  },
+  { 
+    id: "araullo", 
+    name: "Araullo University",
+    abbreviation: "AU",
+    logo: "🟡"
+  },
 ];

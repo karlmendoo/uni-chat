@@ -30,11 +30,21 @@ export function useWebRTC({ socket, isConnected, localVideoRef, remoteVideoRef }
   // Initialize local media stream
   const initializeMedia = useCallback(async () => {
     try {
+      console.log('Requesting media access...');
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { width: 1280, height: 720 },
-        audio: true,
+        video: {
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+          facingMode: 'user'
+        },
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: true
+        },
       });
       
+      console.log('Media access granted, stream obtained:', stream.getTracks().map(t => t.kind));
       setLocalStream(stream);
       if (localVideoRef.current) {
         localVideoRef.current.srcObject = stream;
@@ -43,6 +53,16 @@ export function useWebRTC({ socket, isConnected, localVideoRef, remoteVideoRef }
       return stream;
     } catch (error) {
       console.error('Error accessing media devices:', error);
+      // Provide more helpful error messages
+      if (error instanceof DOMException) {
+        if (error.name === 'NotAllowedError') {
+          alert('Camera and microphone access denied. Please grant permissions and reload the page.');
+        } else if (error.name === 'NotFoundError') {
+          alert('No camera or microphone found. Please connect a device and reload the page.');
+        } else if (error.name === 'NotReadableError') {
+          alert('Camera or microphone is already in use by another application.');
+        }
+      }
       throw error;
     }
   }, [localVideoRef]);

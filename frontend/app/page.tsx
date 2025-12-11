@@ -45,19 +45,19 @@ export default function HomePage() {
             </div>
 
             {/* Hero Title */}
-            <h2 className="text-5xl md:text-7xl font-bold mb-6 leading-tight text-content">
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-tight text-content px-4">
               Meet Students
               <br />
               <span className="text-gradient">Around the Philippines</span>
             </h2>
 
-            <p className="text-xl text-muted mb-12 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-muted mb-12 max-w-2xl mx-auto px-4">
               Anonymous video chat platform exclusively for university students. 
               Connect, chat, and make friends with students from top universities in the Philippines.
             </p>
 
             {/* Input Form */}
-            <Card className="max-w-xl mx-auto p-8 glow">
+            <Card className="max-w-xl mx-auto p-4 sm:p-8 glow mx-4">
               <div className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-muted mb-2 text-left">
@@ -90,7 +90,7 @@ export default function HomePage() {
                 <Button
                   onClick={handleStartChat}
                   disabled={!username.trim() || !university}
-                  className="w-full text-lg glow"
+                  className="w-full text-base sm:text-lg glow"
                   size="lg"
                 >
                   Start Chatting

@@ -132,18 +132,18 @@ export default function ChatPage() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       {/* Header */}
-      <header className="glass-card p-4 border-b border-border">
-        <div className="container mx-auto flex items-center justify-between">
+      <header className="glass-card p-3 sm:p-4 border-b border-border">
+        <div className="container mx-auto flex items-center justify-between flex-wrap gap-2">
           <div className="flex items-center gap-2">
-            <div className="text-2xl font-bold text-gradient">UniChat</div>
+            <div className="text-xl sm:text-2xl font-bold text-gradient">UniChat</div>
           </div>
           
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
             {/* Match filter */}
             <select
               value={matchFilter}
               onChange={(e) => setMatchFilter(e.target.value)}
-              className="glass px-4 py-2 rounded-lg text-content cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50"
+              className="glass px-2 sm:px-4 py-2 rounded-lg text-content cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm sm:text-base"
               disabled={connectionState === 'connected' || isSearching}
             >
               <option value="any">Any University</option>
@@ -161,7 +161,7 @@ export default function ChatPage() {
                     : 'bg-gray-400'
                 }`}
               />
-              <span className="text-sm text-muted">
+              <span className="text-xs sm:text-sm text-muted hidden sm:inline">
                 {connectionState === 'connected'
                   ? 'Connected'
                   : connectionState === 'connecting'
@@ -174,8 +174,8 @@ export default function ChatPage() {
       </header>
 
       {/* Main content */}
-      <main className="flex-1 container mx-auto p-4">
-        <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <main className="flex-1 container mx-auto p-2 sm:p-4">
+        <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-4">
           {/* Remote video */}
           <div className="relative">
             {peerUsername ? (
@@ -183,26 +183,26 @@ export default function ChatPage() {
                 ref={remoteVideoRef}
                 username={peerUsername}
                 university={peerUniversityName}
-                className="w-full h-[400px] lg:h-full"
+                className="w-full h-[300px] sm:h-[400px] lg:h-full"
               />
             ) : isSearching ? (
-              <div className="glass-card w-full h-[400px] lg:h-full flex items-center justify-center">
-                <div className="text-center">
-                  <Loader2 className="w-16 h-16 text-primary animate-spin mx-auto mb-4" />
-                  <h3 className="text-2xl font-semibold mb-2 text-content">Searching for a match...</h3>
-                  <p className="text-muted">
+              <div className="glass-card w-full h-[300px] sm:h-[400px] lg:h-full flex items-center justify-center">
+                <div className="text-center px-4">
+                  <Loader2 className="w-12 h-12 sm:w-16 sm:h-16 text-primary animate-spin mx-auto mb-4" />
+                  <h3 className="text-xl sm:text-2xl font-semibold mb-2 text-content">Searching for a match...</h3>
+                  <p className="text-sm sm:text-base text-muted">
                     {matchFilter === 'same' ? 'Looking for students from your university' : 'Looking for students in the Philippines'}
                   </p>
                 </div>
               </div>
             ) : (
-              <div className="glass-card w-full h-[400px] lg:h-full flex items-center justify-center">
-                <div className="text-center">
-                  <h3 className="text-2xl font-semibold mb-4 text-content">Ready to chat?</h3>
+              <div className="glass-card w-full h-[300px] sm:h-[400px] lg:h-full flex items-center justify-center">
+                <div className="text-center px-4">
+                  <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-content">Ready to chat?</h3>
                   <button
                     onClick={findMatch}
                     disabled={!localStream}
-                    className="btn-primary text-lg px-8 py-4 glow"
+                    className="btn-primary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 glow"
                   >
                     Find a Match
                   </button>
@@ -219,14 +219,14 @@ export default function ChatPage() {
               isLocal
               username={username}
               university={universityName}
-              className="w-full h-[400px] lg:h-full"
+              className="w-full h-[300px] sm:h-[400px] lg:h-full"
             />
           </div>
         </div>
       </main>
 
       {/* Controls */}
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-2 sm:p-4">
         <ControlBar
           isMuted={isMuted}
           isVideoOff={isVideoOff}
