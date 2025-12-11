@@ -53,11 +53,11 @@ export default function HomePage() {
 
             <p className="text-lg sm:text-xl text-muted mb-12 max-w-2xl mx-auto px-4">
               Anonymous video chat platform exclusively for university students. 
-              Connect, chat, and make friends with students from top universities in the Philippines.
+              Connect, chat, and make friends with students from universities in the Philippines.
             </p>
 
             {/* Input Form */}
-            <Card className="max-w-xl mx-auto p-4 sm:p-8 glow mx-4">
+            <Card className="max-w-xl mx-auto p-4 sm:p-8 glow">
               <div className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-muted mb-2 text-left">

@@ -62,8 +62,16 @@ export default function ChatPage() {
 
   // Initialize media on mount
   useEffect(() => {
-    initializeMedia();
-  }, [initializeMedia]);
+    const init = async () => {
+      try {
+        await initializeMedia();
+      } catch (error) {
+        console.error('Failed to initialize media:', error);
+      }
+    };
+    init();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run once on mount
 
   // Join matchmaking queue
   useEffect(() => {

@@ -65,7 +65,8 @@ export function useWebRTC({ socket, isConnected, localVideoRef, remoteVideoRef }
       }
       throw error;
     }
-  }, [localVideoRef]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Remove localVideoRef from dependencies to prevent recreation
 
   // Create peer connection
   const createPeerConnection = useCallback((stream: MediaStream) => {
@@ -104,7 +105,8 @@ export function useWebRTC({ socket, isConnected, localVideoRef, remoteVideoRef }
 
     peerConnectionRef.current = pc;
     return pc;
-  }, [socket, remoteVideoRef]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [socket]); // Remove remoteVideoRef from dependencies
 
   // Handle WebRTC signaling
   useEffect(() => {
