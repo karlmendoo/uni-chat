@@ -21,7 +21,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
           playsInline
           muted={isLocal}
           className={cn(
-            'w-full h-full object-cover bg-navy-800',
+            'w-full h-full object-cover bg-gray-200',
             isMirrored && 'scale-x-[-1]'
           )}
         />
@@ -30,9 +30,9 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
         {username && (
           <div className="absolute bottom-4 left-4 right-4">
             <div className="glass px-4 py-2 rounded-lg inline-block">
-              <div className="text-white font-semibold">{username}</div>
+              <div className="text-content font-semibold">{username}</div>
               {university && (
-                <div className="text-sm text-slate-300">{university}</div>
+                <div className="text-sm text-muted">{university}</div>
               )}
             </div>
           </div>
@@ -41,7 +41,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
         {/* Local indicator */}
         {isLocal && (
           <div className="absolute top-4 left-4">
-            <div className="glass px-3 py-1 rounded-full text-sm text-white">
+            <div className="glass px-3 py-1 rounded-full text-sm text-content">
               You
             </div>
           </div>

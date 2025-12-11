@@ -32,15 +32,15 @@ export function ControlBar({
           className={cn(
             'p-4 rounded-full transition-all duration-200',
             isMuted
-              ? 'bg-red-500 hover:bg-red-600'
-              : 'glass hover:bg-white/10'
+              ? 'bg-red-500 hover:bg-red-600 text-white'
+              : 'glass hover:bg-hover text-content'
           )}
           title={isMuted ? 'Unmute' : 'Mute'}
         >
           {isMuted ? (
-            <MicOff className="w-6 h-6 text-white" />
+            <MicOff className="w-6 h-6" />
           ) : (
-            <Mic className="w-6 h-6 text-white" />
+            <Mic className="w-6 h-6" />
           )}
         </button>
 
@@ -50,34 +50,34 @@ export function ControlBar({
           className={cn(
             'p-4 rounded-full transition-all duration-200',
             isVideoOff
-              ? 'bg-red-500 hover:bg-red-600'
-              : 'glass hover:bg-white/10'
+              ? 'bg-red-500 hover:bg-red-600 text-white'
+              : 'glass hover:bg-hover text-content'
           )}
           title={isVideoOff ? 'Turn on camera' : 'Turn off camera'}
         >
           {isVideoOff ? (
-            <VideoOff className="w-6 h-6 text-white" />
+            <VideoOff className="w-6 h-6" />
           ) : (
-            <Video className="w-6 h-6 text-white" />
+            <Video className="w-6 h-6" />
           )}
         </button>
 
         {/* Skip */}
         <button
           onClick={onSkip}
-          className="p-4 rounded-full glass hover:bg-white/10 transition-all duration-200"
+          className="p-4 rounded-full glass hover:bg-hover transition-all duration-200 text-content"
           title="Skip to next person"
         >
-          <SkipForward className="w-6 h-6 text-white" />
+          <SkipForward className="w-6 h-6" />
         </button>
 
         {/* End Call */}
         <button
           onClick={onEndCall}
-          className="p-4 rounded-full bg-red-500 hover:bg-red-600 transition-all duration-200"
+          className="p-4 rounded-full bg-red-500 hover:bg-red-600 transition-all duration-200 text-white"
           title="End chat"
         >
-          <PhoneOff className="w-6 h-6 text-white" />
+          <PhoneOff className="w-6 h-6" />
         </button>
       </div>
     </div>

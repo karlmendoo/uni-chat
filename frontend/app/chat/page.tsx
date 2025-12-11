@@ -130,9 +130,9 @@ export default function ChatPage() {
   const peerUniversityName = universities.find(u => u.id === peerUniversity)?.name || peerUniversity;
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       {/* Header */}
-      <header className="glass-card p-4 border-b border-white/10">
+      <header className="glass-card p-4 border-b border-border">
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="text-2xl font-bold text-gradient">UniChat</div>
@@ -143,7 +143,7 @@ export default function ChatPage() {
             <select
               value={matchFilter}
               onChange={(e) => setMatchFilter(e.target.value)}
-              className="glass px-4 py-2 rounded-lg text-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50"
+              className="glass px-4 py-2 rounded-lg text-content cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50"
               disabled={connectionState === 'connected' || isSearching}
             >
               <option value="any">Any University</option>
@@ -158,10 +158,10 @@ export default function ChatPage() {
                     ? 'bg-green-500 animate-pulse'
                     : connectionState === 'connecting'
                     ? 'bg-yellow-500 animate-pulse'
-                    : 'bg-slate-500'
+                    : 'bg-gray-400'
                 }`}
               />
-              <span className="text-sm text-slate-300">
+              <span className="text-sm text-muted">
                 {connectionState === 'connected'
                   ? 'Connected'
                   : connectionState === 'connecting'
@@ -189,16 +189,16 @@ export default function ChatPage() {
               <div className="glass-card w-full h-[400px] lg:h-full flex items-center justify-center">
                 <div className="text-center">
                   <Loader2 className="w-16 h-16 text-primary animate-spin mx-auto mb-4" />
-                  <h3 className="text-2xl font-semibold mb-2">Searching for a match...</h3>
-                  <p className="text-slate-400">
-                    {matchFilter === 'same' ? 'Looking for students from your university' : 'Looking for students worldwide'}
+                  <h3 className="text-2xl font-semibold mb-2 text-content">Searching for a match...</h3>
+                  <p className="text-muted">
+                    {matchFilter === 'same' ? 'Looking for students from your university' : 'Looking for students in the Philippines'}
                   </p>
                 </div>
               </div>
             ) : (
               <div className="glass-card w-full h-[400px] lg:h-full flex items-center justify-center">
                 <div className="text-center">
-                  <h3 className="text-2xl font-semibold mb-4">Ready to chat?</h3>
+                  <h3 className="text-2xl font-semibold mb-4 text-content">Ready to chat?</h3>
                   <button
                     onClick={findMatch}
                     disabled={!localStream}
@@ -246,9 +246,9 @@ export default function ChatPage() {
 
       {/* Animated background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-        <div className="absolute top-0 -left-4 w-72 h-72 bg-primary/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-        <div className="absolute top-0 -right-4 w-72 h-72 bg-secondary/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-accent/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+        <div className="absolute top-0 -left-4 w-72 h-72 bg-primary/10 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+        <div className="absolute top-0 -right-4 w-72 h-72 bg-secondary/10 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-accent/10 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
       </div>
     </div>
   );
