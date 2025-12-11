@@ -189,8 +189,13 @@ export function useWebRTC({ socket, isConnected, localVideoRef, remoteVideoRef }
 
   // Cleanup
   const cleanup = useCallback(() => {
-    if (localStream) {
-      localStream.getTracks().forEach(track => track.stop());
+    // Get tracks from the current local stream
+    const stream = localStream;
+    if (stream) {
+      stream.getTracks().forEach(track => {
+        track.stop();
+        console.log('Stopped track:', track.kind);
+      });
     }
     if (peerConnectionRef.current) {
       peerConnectionRef.current.close();
@@ -199,7 +204,7 @@ export function useWebRTC({ socket, isConnected, localVideoRef, remoteVideoRef }
     setLocalStream(null);
     setRemoteStream(null);
     setConnectionState('disconnected');
-  }, []);
+  }, [localStream]);
 
   useEffect(() => {
     return () => {

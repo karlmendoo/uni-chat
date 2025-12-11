@@ -97,22 +97,6 @@ export default function HomePage() {
                 </Button>
               </div>
             </Card>
-
-            {/* Stats */}
-            <div className="mt-16 flex flex-wrap justify-center gap-8">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gradient">25+</div>
-                <div className="text-muted">Universities</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gradient">24/7</div>
-                <div className="text-muted">Available</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gradient">100%</div>
-                <div className="text-muted">Anonymous</div>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -120,7 +104,7 @@ export default function HomePage() {
         <footer className="container mx-auto px-4 py-8 border-t border-border">
           <div className="text-center text-muted">
             <p className="mb-2">UniChat - Connect with students in the Philippines</p>
-            <p className="text-sm">Made with ❤️ for the student community</p>
+            <p className="text-sm">Made with ❤️ for the student community by <a href="https://instagram.com/karlmendoo" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">@karlmendoo</a></p>
           </div>
         </footer>
       </div>

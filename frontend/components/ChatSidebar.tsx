@@ -115,10 +115,11 @@ export function ChatSidebar({ socket, isOpen, onToggle, className }: ChatSidebar
       {!isOpen && (
         <button
           onClick={onToggle}
-          className="fixed right-4 bottom-24 p-4 rounded-full bg-gradient-primary shadow-lg hover:shadow-primary/50 transition-all duration-200 z-40"
+          className="fixed right-4 bottom-24 px-5 py-4 rounded-full bg-gradient-primary shadow-xl hover:shadow-primary/60 transition-all duration-200 z-40 flex items-center gap-2 animate-pulse hover:animate-none hover:scale-110"
           title="Open chat"
         >
           <MessageCircle className="w-6 h-6 text-white" />
+          <span className="text-white font-semibold">Chat</span>
         </button>
       )}
 
