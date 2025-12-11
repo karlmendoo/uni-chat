@@ -125,7 +125,20 @@ export default function HomePage() {
             </div>
 
             <div className="space-y-4 text-content mb-6">
-              <p className="text-lg font-semibold">Welcome to UniChat! Please read and agree to our guidelines:</p>
+              <div className="mb-6 p-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg border border-primary/20">
+                <h3 className="text-xl font-bold mb-3 text-gradient">What is UniChat?</h3>
+                <p className="text-base leading-relaxed mb-2">
+                  UniChat is an <strong>anonymous video chat platform</strong> exclusively designed for university students in the Philippines. 
+                  Connect with fellow students from across the country through random video chats.
+                </p>
+                <p className="text-base leading-relaxed">
+                  <strong>No registration required</strong> - just pick a display name, select your university, and start meeting new people. 
+                  Whether you want to make friends, practice conversations, or simply have fun, UniChat provides a safe and exciting way to connect with the student community.
+                </p>
+              </div>
+              
+              <p className="text-lg font-semibold">Community Guidelines</p>
+              <p className="text-sm text-muted mb-3">Please read and agree to follow these guidelines:</p>
               
               <div className="space-y-3">
                 <div className="flex gap-3">
@@ -159,8 +172,8 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <p className="text-sm text-muted mt-6 p-4 bg-gray-50 rounded-lg">
-                By clicking "I Agree", you confirm that you understand and will follow these community guidelines. Violations may result in being banned from the platform.
+              <p className="text-sm text-muted mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <strong>Important:</strong> By clicking "I Agree", you confirm that you understand and will follow these community guidelines. Violations may result in being banned from the platform.
               </p>
             </div>
 
