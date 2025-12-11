@@ -50,9 +50,9 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
           </div>
         )}
 
-        {/* Camera/Mic status indicators */}
-        {isLocal && (isMuted || isVideoOff) && (
-          <div className="absolute top-4 right-4 flex gap-2">
+        {/* Camera/Mic status indicators - shown on both local and remote */}
+        {(isMuted || isVideoOff) && (
+          <div className="absolute top-4 right-4 flex gap-2 flex-wrap justify-end">
             {isMuted && (
               <div className="glass-red px-3 py-2 rounded-full flex items-center gap-2">
                 <MicOff className="w-4 h-4" />

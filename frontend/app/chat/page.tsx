@@ -20,7 +20,8 @@ export default function ChatPage() {
   const [peerUniversity, setPeerUniversity] = useState('');
   const [matchFilter, setMatchFilter] = useState<MatchFilter>('any');
   const [isSearching, setIsSearching] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [peerIsMuted, setPeerIsMuted] = useState(false);
+  const [peerIsVideoOff, setPeerIsVideoOff] = useState(false);
   
   const localVideoRef = useRef<HTMLVideoElement>(null);
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
@@ -98,12 +99,21 @@ export default function ChatPage() {
       console.log('Peer disconnected');
       setPeerUsername('');
       setPeerUniversity('');
+      setPeerIsMuted(false);
+      setPeerIsVideoOff(false);
       setIsSearching(false);
+    });
+
+    socket.on('peer-media-status', (data: { isMuted: boolean; isVideoOff: boolean }) => {
+      console.log('Peer media status:', data);
+      setPeerIsMuted(data.isMuted);
+      setPeerIsVideoOff(data.isVideoOff);
     });
 
     return () => {
       socket.off('match-found');
       socket.off('peer-disconnected');
+      socket.off('peer-media-status');
     };
   }, [socket, isConnected, username, university, startCall]);
 
@@ -115,6 +125,13 @@ export default function ChatPage() {
     socket.emit('find-match', { filter: matchFilter });
   };
 
+  // Notify peer of media status changes
+  useEffect(() => {
+    if (!socket || !peerUsername) return;
+    
+    socket.emit('media-status', { isMuted, isVideoOff });
+  }, [socket, isMuted, isVideoOff, peerUsername]);
+
   // Skip to next person
   const skipPeer = () => {
     if (!socket) return;
@@ -122,6 +139,8 @@ export default function ChatPage() {
     socket.emit('skip');
     setPeerUsername('');
     setPeerUniversity('');
+    setPeerIsMuted(false);
+    setPeerIsVideoOff(false);
     closePeerConnection(); // Only close peer connection, keep local media active
     findMatch();
   };
@@ -183,8 +202,9 @@ export default function ChatPage() {
       </header>
 
       {/* Main content */}
-      <main className="flex-1 container mx-auto p-2 sm:p-4">
-        <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-4">
+      <main className="flex-1 container mx-auto p-2 sm:p-4 flex flex-col gap-2 sm:gap-4">
+        {/* Video section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-4">
           {/* Remote video */}
           <div className="relative">
             {peerUsername ? (
@@ -192,10 +212,12 @@ export default function ChatPage() {
                 ref={remoteVideoRef}
                 username={peerUsername}
                 university={peerUniversityName}
-                className="w-full h-[300px] sm:h-[400px] lg:h-full"
+                isMuted={peerIsMuted}
+                isVideoOff={peerIsVideoOff}
+                className="w-full h-[300px] sm:h-[400px]"
               />
             ) : isSearching ? (
-              <div className="glass-card w-full h-[300px] sm:h-[400px] lg:h-full flex items-center justify-center">
+              <div className="glass-card w-full h-[300px] sm:h-[400px] flex items-center justify-center">
                 <div className="text-center px-4">
                   <Loader2 className="w-12 h-12 sm:w-16 sm:h-16 text-primary animate-spin mx-auto mb-4" />
                   <h3 className="text-xl sm:text-2xl font-semibold mb-2 text-content">Searching for a match...</h3>
@@ -205,7 +227,7 @@ export default function ChatPage() {
                 </div>
               </div>
             ) : (
-              <div className="glass-card w-full h-[300px] sm:h-[400px] lg:h-full flex items-center justify-center">
+              <div className="glass-card w-full h-[300px] sm:h-[400px] flex items-center justify-center">
                 <div className="text-center px-4">
                   <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-content">Ready to chat?</h3>
                   <button
@@ -230,30 +252,28 @@ export default function ChatPage() {
               university={universityName}
               isMuted={isMuted}
               isVideoOff={isVideoOff}
-              className="w-full h-[300px] sm:h-[400px] lg:h-full"
+              className="w-full h-[300px] sm:h-[400px]"
             />
           </div>
         </div>
+
+        {/* Controls */}
+        <div>
+          <ControlBar
+            isMuted={isMuted}
+            isVideoOff={isVideoOff}
+            onToggleMute={toggleMute}
+            onToggleVideo={toggleVideo}
+            onSkip={skipPeer}
+            onEndCall={endChat}
+          />
+        </div>
+
+        {/* Chat section - always visible below videos */}
+        <div className="glass-card rounded-2xl overflow-hidden">
+          <ChatSidebar socket={socket} isAlwaysVisible />
+        </div>
       </main>
-
-      {/* Controls */}
-      <div className="container mx-auto p-2 sm:p-4">
-        <ControlBar
-          isMuted={isMuted}
-          isVideoOff={isVideoOff}
-          onToggleMute={toggleMute}
-          onToggleVideo={toggleVideo}
-          onSkip={skipPeer}
-          onEndCall={endChat}
-        />
-      </div>
-
-      {/* Chat sidebar */}
-      <ChatSidebar
-        socket={socket}
-        isOpen={isChatOpen}
-        onToggle={() => setIsChatOpen(!isChatOpen)}
-      />
 
       {/* Animated background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">

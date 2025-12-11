@@ -84,6 +84,14 @@ io.on('connection', (socket) => {
     }
   });
 
+  // Media status updates
+  socket.on('media-status', (data) => {
+    const peer = matchmaker.getPeer(socket.id);
+    if (peer) {
+      io.to(peer).emit('peer-media-status', data);
+    }
+  });
+
   // Skip to next person
   socket.on('skip', () => {
     console.log('User skipping:', socket.id);
