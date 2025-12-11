@@ -228,6 +228,8 @@ export default function ChatPage() {
               isLocal
               username={username}
               university={universityName}
+              isMuted={isMuted}
+              isVideoOff={isVideoOff}
               className="w-full h-[300px] sm:h-[400px] lg:h-full"
             />
           </div>

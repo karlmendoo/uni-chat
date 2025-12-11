@@ -22,6 +22,10 @@
     @apply glass rounded-2xl shadow-lg;
   }
   
+  .glass-red {
+    @apply bg-red-500/90 backdrop-blur-xl border border-red-600 shadow-sm text-white;
+  }
+  
   .btn-primary {
     @apply bg-gradient-primary text-white font-semibold px-6 py-3 rounded-xl;
     @apply hover:shadow-lg hover:shadow-primary/50 hover:scale-105;
