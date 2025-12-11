@@ -87,11 +87,11 @@ io.on('connection', (socket) => {
   socket.on('skip', () => {
     console.log('User skipping:', socket.id);
     const peer = matchmaker.getPeer(socket.id);
+    matchmaker.disconnect(socket.id);
     if (peer) {
       io.to(peer).emit('peer-disconnected');
       matchmaker.disconnect(peer);
     }
-    matchmaker.disconnect(socket.id);
   });
 
   // Leave chat

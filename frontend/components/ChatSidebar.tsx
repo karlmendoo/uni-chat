@@ -184,9 +184,9 @@ export function ChatSidebar({ socket, isOpen, onToggle, className }: ChatSidebar
               <div className="flex justify-start">
                 <div className="glass rounded-2xl px-4 py-2">
                   <div className="flex gap-1">
-                    <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                    <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                    <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                    <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce animation-delay-150"></div>
+                    <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce animation-delay-300"></div>
                   </div>
                 </div>
               </div>

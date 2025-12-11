@@ -46,6 +46,8 @@ export default function ChatPage() {
 
   // Load user data from session storage
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const storedUsername = sessionStorage.getItem('username');
     const storedUniversity = sessionStorage.getItem('university');
     

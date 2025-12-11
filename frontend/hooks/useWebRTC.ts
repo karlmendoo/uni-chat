@@ -199,7 +199,7 @@ export function useWebRTC({ socket, isConnected, localVideoRef, remoteVideoRef }
     setLocalStream(null);
     setRemoteStream(null);
     setConnectionState('disconnected');
-  }, [localStream]);
+  }, []);
 
   useEffect(() => {
     return () => {
