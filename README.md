@@ -107,15 +107,38 @@ npm install
 
 4. **Set up environment variables**
 
-Create a `.env` file in the root directory (or copy from `.env.example`):
-```env
-# Frontend
-NEXT_PUBLIC_SOCKET_URL=http://localhost:3001
+**Frontend (.env.local)**
 
-# Server
+Create a `.env.local` file in the `frontend` directory:
+```bash
+cd frontend
+cp .env.example .env.local
+```
+
+Edit `.env.local`:
+```env
+# Socket.io Server URL
+NEXT_PUBLIC_SOCKET_URL=http://localhost:3001
+```
+
+**Backend (.env)**
+
+Create a `.env` file in the `server` directory:
+```bash
+cd server
+cp .env.example .env
+```
+
+Edit `.env`:
+```env
+# Server Port
 PORT=3001
+
+# Frontend URL (for CORS)
 CLIENT_URL=http://localhost:3000
 ```
+
+> **Important**: The server now uses the `dotenv` package to load environment variables. Make sure to create the `.env` file before starting the server, or environment variables won't be loaded!
 
 ### Running the Application
 
@@ -146,11 +169,28 @@ npm run build
 npm start
 ```
 
+For production deployment, update your `.env.local`:
+```env
+NEXT_PUBLIC_SOCKET_URL=https://your-server-domain.com
+```
+
 #### Backend
 ```bash
 cd server
 npm start
 ```
+
+For production deployment, update your `.env`:
+```env
+PORT=3001
+CLIENT_URL=https://your-frontend-domain.com
+```
+
+> **Production Tips**:
+> - Use environment-specific `.env` files
+> - Never commit `.env` files to version control
+> - Set environment variables directly in your hosting platform (Vercel, Railway, etc.)
+> - Enable HTTPS for WebRTC to work properly in production
 
 ## 🎨 Design System
 
