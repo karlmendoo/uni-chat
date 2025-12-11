@@ -1,6 +1,7 @@
 export function createMatchmaker(io) {
-  const users = new Map(); // socketId -> { username, university, searching, peer, timestamp }
+  const users = new Map(); // socketId -> { username, university, searching, peer, timestamp, searchStartTime }
   const queue = new Map(); // filter -> array of socketIds
+  const SEARCH_TIMEOUT = 15000; // 15 seconds - after this, disable randomness
 
   function registerUser(socketId, userData) {
     users.set(socketId, {
@@ -9,6 +10,7 @@ export function createMatchmaker(io) {
       searching: false,
       peer: null,
       timestamp: Date.now(),
+      searchStartTime: null,
     });
   }
 
@@ -27,6 +29,15 @@ export function createMatchmaker(io) {
     if (!user) return;
 
     user.searching = true;
+    
+    // Set search start time if not already set
+    if (!user.searchStartTime) {
+      user.searchStartTime = Date.now();
+    }
+
+    // Check if search has exceeded timeout
+    const searchDuration = Date.now() - user.searchStartTime;
+    const useRandomization = searchDuration < SEARCH_TIMEOUT;
 
     // Determine queue key based on filter
     let queueKey = 'any';
@@ -45,9 +56,9 @@ export function createMatchmaker(io) {
     const validWaitingUsers = waitingUsers.filter(id => id !== socketId && users.has(id));
 
     if (validWaitingUsers.length > 0) {
-      // Randomize the selection to improve match variety
-      const shuffledUsers = shuffleArray(validWaitingUsers);
-      const peerId = shuffledUsers[0];
+      // Use randomization only if within timeout, otherwise use FIFO
+      const usersToMatch = useRandomization ? shuffleArray(validWaitingUsers) : validWaitingUsers;
+      const peerId = usersToMatch[0];
       const peer = users.get(peerId);
 
       // Remove peer from queue
@@ -59,8 +70,10 @@ export function createMatchmaker(io) {
       // Update both users
       user.peer = peerId;
       user.searching = false;
+      user.searchStartTime = null; // Reset search timer
       peer.peer = socketId;
       peer.searching = false;
+      peer.searchStartTime = null; // Reset search timer
 
       // Notify both users
       io.to(socketId).emit('match-found', {
@@ -92,8 +105,8 @@ export function createMatchmaker(io) {
         
         if (sameUniUsers.length > 0) {
           // Found same university match, use it
-          const shuffledSameUni = shuffleArray(sameUniUsers);
-          const peerId = shuffledSameUni[0];
+          const usersToMatchSameUni = useRandomization ? shuffleArray(sameUniUsers) : sameUniUsers;
+          const peerId = usersToMatchSameUni[0];
           const peer = users.get(peerId);
 
           // Remove from same uni queue
@@ -106,8 +119,10 @@ export function createMatchmaker(io) {
           // Update both users
           user.peer = peerId;
           user.searching = false;
+          user.searchStartTime = null; // Reset search timer
           peer.peer = socketId;
           peer.searching = false;
+          peer.searchStartTime = null; // Reset search timer
 
           // Notify both users
           io.to(socketId).emit('match-found', {

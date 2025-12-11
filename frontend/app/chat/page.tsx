@@ -110,6 +110,9 @@ export default function ChatPage() {
       setPeerIsVideoOff(false);
       setIsSearching(false);
       
+      // Close the peer connection
+      closePeerConnection();
+      
       // Hide notification after 3 seconds
       setTimeout(() => {
         setPeerDisconnectNotification(false);
@@ -127,7 +130,7 @@ export default function ChatPage() {
       socket.off('peer-disconnected');
       socket.off('peer-media-status');
     };
-  }, [socket, isConnected, username, university, startCall]);
+  }, [socket, isConnected, username, university, startCall, closePeerConnection]);
 
   // Find match
   const findMatch = () => {
