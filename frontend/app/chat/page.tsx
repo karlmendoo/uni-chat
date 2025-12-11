@@ -36,6 +36,7 @@ export default function ChatPage() {
     startCall,
     toggleMute,
     toggleVideo,
+    closePeerConnection,
     cleanup,
   } = useWebRTC({
     socket,
@@ -121,7 +122,7 @@ export default function ChatPage() {
     socket.emit('skip');
     setPeerUsername('');
     setPeerUniversity('');
-    cleanup();
+    closePeerConnection(); // Only close peer connection, keep local media active
     findMatch();
   };
 

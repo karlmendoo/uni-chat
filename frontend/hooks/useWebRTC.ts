@@ -211,7 +211,17 @@ export function useWebRTC({ socket, isConnected, localVideoRef, remoteVideoRef }
     }
   }, [localStream]);
 
-  // Cleanup
+  // Close peer connection only (for skipping to next match)
+  const closePeerConnection = useCallback(() => {
+    if (peerConnectionRef.current) {
+      peerConnectionRef.current.close();
+      peerConnectionRef.current = null;
+    }
+    setRemoteStream(null);
+    setConnectionState('disconnected');
+  }, []);
+
+  // Cleanup everything (for ending chat/leaving page)
   const cleanup = useCallback(() => {
     // Access the latest localStream value without adding it to dependencies
     if (localStreamRef.current) {
@@ -247,6 +257,7 @@ export function useWebRTC({ socket, isConnected, localVideoRef, remoteVideoRef }
     startCall,
     toggleMute,
     toggleVideo,
+    closePeerConnection,
     cleanup,
   };
 }
