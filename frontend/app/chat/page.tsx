@@ -22,6 +22,8 @@ export default function ChatPage() {
   const [isSearching, setIsSearching] = useState(false);
   const [peerIsMuted, setPeerIsMuted] = useState(false);
   const [peerIsVideoOff, setPeerIsVideoOff] = useState(false);
+  const [peerDisconnectNotification, setPeerDisconnectNotification] = useState(false);
+  const [resetChatTrigger, setResetChatTrigger] = useState(0);
   
   const localVideoRef = useRef<HTMLVideoElement>(null);
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
@@ -88,6 +90,10 @@ export default function ChatPage() {
       setIsSearching(false);
       setPeerUsername(data.peer.username);
       setPeerUniversity(data.peer.university);
+      setPeerDisconnectNotification(false);
+      
+      // Reset chat when new match is found
+      setResetChatTrigger(prev => prev + 1);
       
       // If initiator, start the call
       if (data.isInitiator) {
@@ -97,11 +103,17 @@ export default function ChatPage() {
 
     socket.on('peer-disconnected', () => {
       console.log('Peer disconnected');
+      setPeerDisconnectNotification(true);
       setPeerUsername('');
       setPeerUniversity('');
       setPeerIsMuted(false);
       setPeerIsVideoOff(false);
       setIsSearching(false);
+      
+      // Hide notification after 3 seconds
+      setTimeout(() => {
+        setPeerDisconnectNotification(false);
+      }, 3000);
     });
 
     socket.on('peer-media-status', (data: { isMuted: boolean; isVideoOff: boolean }) => {
@@ -141,7 +153,12 @@ export default function ChatPage() {
     setPeerUniversity('');
     setPeerIsMuted(false);
     setPeerIsVideoOff(false);
+    setPeerDisconnectNotification(false);
     closePeerConnection(); // Only close peer connection, keep local media active
+    
+    // Reset chat when skipping
+    setResetChatTrigger(prev => prev + 1);
+    
     findMatch();
   };
 
@@ -271,9 +288,18 @@ export default function ChatPage() {
 
         {/* Chat section - always visible below videos */}
         <div className="glass-card rounded-2xl overflow-hidden">
-          <ChatSidebar socket={socket} isAlwaysVisible />
+          <ChatSidebar socket={socket} isAlwaysVisible resetTrigger={resetChatTrigger} />
         </div>
       </main>
+
+      {/* Peer Disconnect Notification */}
+      {peerDisconnectNotification && (
+        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 animate-slide-down">
+          <div className="glass-card px-6 py-3 rounded-full border-2 border-red-500 shadow-lg">
+            <p className="text-red-600 font-semibold">Your peer has disconnected</p>
+          </div>
+        </div>
+      )}
 
       {/* Animated background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">

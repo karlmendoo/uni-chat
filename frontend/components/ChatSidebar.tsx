@@ -20,14 +20,24 @@ interface ChatSidebarProps {
   onToggle?: () => void;
   className?: string;
   isAlwaysVisible?: boolean;
+  resetTrigger?: number;
 }
 
-export function ChatSidebar({ socket, isOpen = false, onToggle, className, isAlwaysVisible = false }: ChatSidebarProps) {
+export function ChatSidebar({ socket, isOpen = false, onToggle, className, isAlwaysVisible = false, resetTrigger = 0 }: ChatSidebarProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Reset chat when resetTrigger changes
+  useEffect(() => {
+    if (resetTrigger > 0) {
+      setMessages([]);
+      setInputMessage('');
+      setIsTyping(false);
+    }
+  }, [resetTrigger]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
