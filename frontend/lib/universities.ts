@@ -6,6 +6,13 @@ export interface University {
 }
 
 export const universities: University[] = [
+  // Privacy option
+  { 
+    id: "prefer-not-to-disclose", 
+    name: "I prefer not to disclose",
+    abbreviation: "Prefer not to disclose",
+    logo: "🔒"
+  },
   // Top Universities in the Philippines
   { 
     id: "up-diliman", 
